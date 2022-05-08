@@ -40,5 +40,17 @@ class CarListMapperTest {
                         tuple("tesla", 6, CarType.SUV.name()),
                         tuple("lucid", 5, CarType.SEDAN.name())
                 );
+
+        assertThat(carDTOs)
+                .isNotNull()
+                .hasSize(2)
+                .extracting(
+                        CarDTO::getMake,
+                        CarDTO::getSeatCount,
+                        CarDTO::getType
+                ).containsExactly(
+                        tuple("tesla", 6, CarType.SUV.name()),
+                        tuple("lucid", 5, CarType.SEDAN.name())
+                );
     }
 }
