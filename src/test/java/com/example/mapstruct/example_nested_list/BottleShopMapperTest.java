@@ -63,18 +63,29 @@ class BottleShopMapperTest {
                 .hasFieldOrPropertyWithValue("name", bottleShop.getName())
                 .hasFieldOrPropertyWithValue("address", bottleShop.getAddress())
                 .hasFieldOrPropertyWithValue("phoneNumber", bottleShop.getPhoneNumber());
+
         assertThat(result.getBeers())
                 .isNotNull()
                 .hasSize(2)
-                .extracting("beerName", "strength", "ml", "dateOfManufacture")
+                .extracting(
+                        BottleShopDTO.BeerDTO::getBeerName,
+                        BottleShopDTO.BeerDTO::getStrength,
+                        BottleShopDTO.BeerDTO::getMl,
+                        BottleShopDTO.BeerDTO::getDateOfManufacture
+                )
                 .contains(
                         tuple("Terra", 5f, 300, LocalDate.of(2021, 1, 1)),
                         tuple("Hite", 4.5f, 300, LocalDate.of(2021, 2, 2))
                 );
+
         assertThat(result.getWhiskies())
                 .isNotNull()
                 .hasSize(1)
-                .extracting("whiskyName", "strength", "ml", "dateOfManufacture")
+                .extracting(
+                        BottleShopDTO.WhiskyDTO::getWhiskyName,
+                        BottleShopDTO.WhiskyDTO::getStrength,
+                        BottleShopDTO.WhiskyDTO::getMl,
+                        BottleShopDTO.WhiskyDTO::getDateOfManufacture)
                 .contains(
                         tuple("Glenfiddich", 40f, 500, LocalDate.of(2000, 12, 12))
                 );
